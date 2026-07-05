@@ -62,6 +62,7 @@ def main():
         "render:toc": r.get("hasToc"),
         "render:tasks": r.get("hasTaskbox"),
         "editor themes dark": _is_dark(d.get("darkEditorBg")) and d.get("hasDarkUi"),
+        "export inlines base css": d.get("exportHasBaseCss"),
     }
     print("\n--- checks ---")
     for k, v in checks.items():

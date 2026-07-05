@@ -535,6 +535,7 @@
     setTimeout(function () { doFind(findState.query); }, 10);
   }
   function replaceAll() {
+    if (!findState.query) return;   // guard: empty query would match everywhere and loop
     var cm = global.Ed.cm();
     var repl = document.getElementById("replace-input").value;
     var q = buildQuery(findState.query);
@@ -590,7 +591,14 @@
     try {
       var out = "";
       var rules = ss.cssRules || [];
-      for (var i = 0; i < rules.length; i++) out += rules[i].cssText + "\n";
+      for (var i = 0; i < rules.length; i++) {
+        var rule = rules[i];
+        // Inline @import rules (rule.styleSheet) so the imported sheet's rules
+        // are embedded — a raw @import with a relative URL cannot resolve in a
+        // standalone exported HTML file (this is where _base.css lives).
+        if (rule.styleSheet) out += cssText(rule.styleSheet) + "\n";
+        else out += rule.cssText + "\n";
+      }
       return out;
     } catch (e) { return ""; }
   }
@@ -894,6 +902,13 @@
       setTheme((settings.theme || "github"), true);
     } catch (e) {
       diag.darkProbeError = String(e);
+    }
+    // verify styled HTML export inlines _base.css (a base-only selector must appear)
+    try {
+      var exported = fullHtmlDoc(true);
+      diag.exportHasBaseCss = exported.indexOf("task-list-item") >= 0;
+    } catch (e2) {
+      diag.exportError = String(e2);
     }
     if (global.pywebview && global.pywebview.api)
       global.pywebview.api.selftest_report(JSON.stringify(diag));
