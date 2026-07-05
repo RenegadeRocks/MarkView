@@ -18,6 +18,8 @@
     whitey: "github", pixyll: "atom-one-light", gothic: "vs2015",
     academic: "github", solarized: "atom-one-light", dark: "monokai"
   };
+  // themes whose chrome + source editor should render dark
+  var DARK_THEMES = { night: 1, dark: 1, gothic: 1, solarized: 1 };
 
   var settings = {};
   var state = {
@@ -297,6 +299,11 @@
     document.body.classList.add("mode-" + mode);
     document.getElementById("st-mode").textContent =
       mode === "live" ? "Live" : mode === "source" ? "Source" : "Reading";
+    // highlight the active view-mode button in the header
+    document.querySelectorAll("#quick-actions .qa").forEach(function (b) {
+      if (["view.live", "view.source", "view.reading"].indexOf(b.dataset.cmd) >= 0)
+        b.classList.toggle("active", b.dataset.cmd === "view." + mode);
+    });
     if (!silent) saveSettings({ mode: mode });
     if (mode !== "source") global.Ed.reRender();
     setTimeout(function () { global.Ed.refresh(); }, 30);
@@ -336,6 +343,8 @@
       "vendor/highlight/" + (CODE_THEMES[id] || "github") + ".min.css";
     THEMES.forEach(function (t) { document.body.classList.remove("theme-" + t.id); });
     document.body.classList.add("theme-" + id);
+    // mark dark themes so the source editor (CodeMirror) can follow suit
+    document.body.classList.toggle("dark-ui", !!DARK_THEMES[id]);
     document.getElementById("st-theme").textContent = id;
     document.querySelectorAll(".theme-mi").forEach(function (m) {
       m.classList.toggle("checked", m.dataset.theme === id);
@@ -874,6 +883,18 @@
       hasToc: r.html.indexOf("md-toc") >= 0,
       outline: r.outline.length
     };
+    // verify the source editor follows a dark theme (Night)
+    try {
+      var savedClass = document.body.className;
+      setTheme("night", true);
+      var ep = document.getElementById("editor-pane");
+      diag.darkEditorBg = getComputedStyle(ep).backgroundColor;
+      diag.hasDarkUi = document.body.classList.contains("dark-ui");
+      document.body.className = savedClass;
+      setTheme((settings.theme || "github"), true);
+    } catch (e) {
+      diag.darkProbeError = String(e);
+    }
     if (global.pywebview && global.pywebview.api)
       global.pywebview.api.selftest_report(JSON.stringify(diag));
   }

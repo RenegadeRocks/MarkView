@@ -11,6 +11,14 @@ if os.path.exists(OUTFILE):
 os.environ["MARKVIEW_SELFTEST"] = OUTFILE
 
 
+def _is_dark(css_color):
+    """True if a CSS rgb(...) color is dark (low luminance)."""
+    if not css_color:
+        return False
+    nums = [int(x) for x in __import__("re").findall(r"\d+", css_color)[:3]]
+    return len(nums) == 3 and sum(nums) < 300
+
+
 def watcher(window):
     for _ in range(160):  # up to ~16s
         if os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
@@ -53,6 +61,7 @@ def main():
         "render:table": r.get("hasTable"),
         "render:toc": r.get("hasToc"),
         "render:tasks": r.get("hasTaskbox"),
+        "editor themes dark": _is_dark(d.get("darkEditorBg")) and d.get("hasDarkUi"),
     }
     print("\n--- checks ---")
     for k, v in checks.items():

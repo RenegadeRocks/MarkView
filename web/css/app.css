@@ -83,6 +83,7 @@ button { font-family: inherit; }
   width: 30px; height: 24px; border-radius: 5px; cursor: pointer; font-size: 13px;
 }
 .qa:hover { background: var(--ui-hover); color: var(--ui-text); }
+.qa.active { background: var(--ui-active); color: var(--ui-accent); }
 
 /* ---------------- toolbar ---------------- */
 #toolbar {
@@ -179,17 +180,48 @@ body.mode-source #preview-pane, body.mode-source #pane-resizer { display: none; 
 body.mode-source #editor-pane { flex-basis: 100% !important; }
 body.mode-reading #editor-pane, body.mode-reading #pane-resizer { display: none; }
 body.mode-reading #preview-pane { flex-basis: 100% !important; }
+/* reading mode is for reading — hide the editing toolbar */
+body.mode-reading #toolbar { display: none; }
 
-/* CodeMirror */
+/* CodeMirror — source editor follows the active theme (chrome variables) */
 .CodeMirror {
   height: 100%; width: 100%; font-size: 15px;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   line-height: 1.6; padding: 8px 4px;
+  background: transparent;          /* inherit #editor-pane (var(--ui-panel)) */
+  color: var(--ui-text);
 }
 #panes { font-size: 16px; }
 .CodeMirror { font-size: 1em; }
-.cm-search-hit { background: rgba(255, 213, 0, .45); }
-.CodeMirror-focused .cm-search-hit { background: rgba(255, 213, 0, .55); }
+.CodeMirror-cursor { border-left: 1px solid var(--ui-text); }
+.CodeMirror-selected { background: var(--ui-active); }
+.CodeMirror-focused .CodeMirror-selected { background: var(--ui-active); }
+.CodeMirror-line::selection, .CodeMirror-line ::selection { background: var(--ui-active); }
+.CodeMirror-gutters { background: transparent; border: none; }
+.CodeMirror-linenumber { color: var(--ui-dim); }
+.CodeMirror-activeline-background { background: rgba(127, 127, 127, .06); }
+.CodeMirror-matchingbracket { color: var(--ui-accent) !important; text-decoration: underline; }
+.cm-search-hit { background: rgba(255, 213, 0, .45); color: #1a1a1a; }
+.CodeMirror-focused .cm-search-hit { background: rgba(255, 213, 0, .6); color: #1a1a1a; }
+
+/* dark themes: give the markdown source a legible dark syntax palette */
+body.dark-ui .cm-header { color: #6cb6ff; font-weight: 600; }
+body.dark-ui .cm-quote { color: #7fb37f; }
+body.dark-ui .cm-link, body.dark-ui .cm-url { color: #61afef; }
+body.dark-ui .cm-string { color: #98c379; }
+body.dark-ui .cm-comment { color: #a5b4c8; }         /* inline / fenced code */
+body.dark-ui .cm-keyword { color: #c678dd; }
+body.dark-ui .cm-atom, body.dark-ui .cm-number { color: #d19a66; }
+body.dark-ui .cm-variable-2 { color: #e5c07b; }      /* list markers */
+body.dark-ui .cm-variable-3, body.dark-ui .cm-type, body.dark-ui .cm-property { color: #56b6c2; }
+body.dark-ui .cm-def { color: #61afef; }
+body.dark-ui .cm-tag { color: #e06c75; }
+body.dark-ui .cm-attribute { color: #d19a66; }
+body.dark-ui .cm-operator { color: #c7ccd6; }
+body.dark-ui .cm-meta { color: #7d8590; }
+body.dark-ui .cm-em { font-style: italic; }
+body.dark-ui .cm-strong { font-weight: 700; color: #e6e9ef; }
+body.dark-ui .cm-formatting { color: #6b7280; }      /* the *, #, > syntax marks */
 
 /* focus mode dims non-active lines in the editor */
 body.focus .CodeMirror-line { opacity: .32; transition: opacity .2s; }
