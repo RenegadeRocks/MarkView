@@ -1,0 +1,12 @@
+/* Theme: Pixyll — elegant serif */
+@import "_base.css";
+#write {
+  --bg: #fdfdfd; --fg: #333333; --muted: #7a7a7a; --accent: #2a7ae2;
+  --border: #e6e6e6; --code-bg: #f4f4f4; --quote-fg: #555; --quote-bar: #333;
+  --table-alt: #f7f7f7; --mark: #ffeeba;
+  --font: "Merriweather", Georgia, "Times New Roman", serif;
+  --hfont: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+  --size: 18px; --lh: 1.8; --maxw: 760px; --hweight: 800; --hrule: none;
+}
+#write h1, #write h2, #write h3 { letter-spacing: -.02em; }

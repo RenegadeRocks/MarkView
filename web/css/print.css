@@ -1,0 +1,20 @@
+/* print.css — used for Print / Export to PDF (reading mode). */
+@page { margin: 18mm 16mm; }
+@media print {
+  #menubar, #toolbar, #sidebar, #sidebar-resizer, #statusbar,
+  #find-bar, #editor-pane, #pane-resizer, #modal-overlay, #toast { display: none !important; }
+  html, body { height: auto !important; overflow: visible !important; background: #fff !important; }
+  #main, #content, #panes { display: block !important; height: auto !important; overflow: visible !important; }
+  #preview-pane { display: block !important; overflow: visible !important; height: auto !important; background: #fff !important; }
+  #write {
+    max-width: 100% !important; margin: 0 !important; padding: 0 !important;
+    color: #000 !important; background: #fff !important; font-size: 12pt; line-height: 1.55;
+  }
+  #write a { color: #000 !important; text-decoration: underline; }
+  #write pre, #write blockquote, #write table, #write img,
+  #write .math-display, #write .mermaid-rendered { page-break-inside: avoid; }
+  #write h1, #write h2, #write h3, #write h4 { page-break-after: avoid; }
+  #write pre { border: 1px solid #ddd; white-space: pre-wrap; word-wrap: break-word; }
+  #write .code-lang { display: none; }
+  #write img { max-width: 100% !important; }
+}

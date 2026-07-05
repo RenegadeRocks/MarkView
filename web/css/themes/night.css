@@ -1,0 +1,10 @@
+/* Theme: Night */
+@import "_base.css";
+#write {
+  --bg: #1a1d23; --fg: #c7ccd6; --muted: #7d8594; --accent: #6cb6ff;
+  --border: #2f353f; --code-bg: #23272e; --quote-fg: #9aa2ae; --quote-bar: #3a4150;
+  --quote-bg: rgba(255,255,255,.02); --table-alt: #22262d; --mark: #ffe08a;
+  --font: -apple-system, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --hrule: 1px solid #2f353f;
+}

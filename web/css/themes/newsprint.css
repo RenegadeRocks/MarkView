@@ -1,0 +1,11 @@
+/* Theme: Newsprint */
+@import "_base.css";
+#write {
+  --bg: #f7f4ef; --fg: #2c2c2c; --muted: #6b6b6b; --accent: #a03a2e;
+  --border: #ddd6c9; --code-bg: #efeae0; --quote-fg: #5c5c5c; --quote-bar: #c9bfab;
+  --table-alt: #efeae0; --mark: #f6e58d;
+  --font: "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --hfont: "Palatino Linotype", Palatino, Georgia, serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+  --size: 17px; --lh: 1.75; --maxw: 780px; --link-deco: underline;
+}

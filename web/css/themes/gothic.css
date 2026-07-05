@@ -1,0 +1,12 @@
+/* Theme: Gothic — dark modern */
+@import "_base.css";
+#write {
+  --bg: #16181d; --fg: #d4d7dd; --muted: #808693; --accent: #e06c9f;
+  --border: #292d35; --code-bg: #1d2027; --quote-fg: #9aa0ac; --quote-bar: #e06c9f;
+  --quote-bg: rgba(224,108,159,.05); --table-alt: #1c1f26; --mark: #f4d35e;
+  --font: "Avenir Next", "Segoe UI", -apple-system, Roboto, sans-serif;
+  --mono: "Fira Code", "SFMono-Regular", Consolas, monospace;
+  --size: 16px; --lh: 1.75; --hweight: 700; --hrule: none;
+  --hcolor: #f0f2f5;
+}
+#write h1, #write h2 { padding-bottom: .2em; border-bottom: 2px solid var(--border); }

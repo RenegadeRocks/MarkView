@@ -1,0 +1,15 @@
+/* Theme: Academic — paper/LaTeX style */
+@import "_base.css";
+#write {
+  --bg: #ffffff; --fg: #1a1a1a; --muted: #555; --accent: #8b0000;
+  --border: #cccccc; --code-bg: #f5f5f5; --quote-fg: #444; --quote-bar: #999;
+  --table-alt: #f7f7f7; --mark: #fff2a8;
+  --font: "Latin Modern Roman", "Computer Modern", Georgia, "Times New Roman", serif;
+  --hfont: "Latin Modern Roman", Georgia, serif;
+  --mono: "Latin Modern Mono", "SFMono-Regular", Consolas, monospace;
+  --size: 17px; --lh: 1.7; --maxw: 720px; --hweight: 700; --hrule: none;
+  --link-deco: none;
+}
+#write { text-align: justify; hyphens: auto; }
+#write h1 { text-align: center; font-size: 1.9em; }
+#write h2 { font-size: 1.4em; }

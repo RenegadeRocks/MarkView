@@ -1,0 +1,10 @@
+/* Theme: Solarized (dark) */
+@import "_base.css";
+#write {
+  --bg: #002b36; --fg: #93a1a1; --muted: #657b83; --accent: #268bd2;
+  --border: #0b3a45; --code-bg: #073642; --quote-fg: #839496; --quote-bar: #268bd2;
+  --quote-bg: rgba(38,139,210,.06); --table-alt: #073642; --mark: #b58900;
+  --font: -apple-system, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --hcolor: #eee8d5; --hrule: 1px solid #0b3a45;
+}

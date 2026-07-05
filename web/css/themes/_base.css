@@ -1,0 +1,71 @@
+/* _base.css — shared document structure for all themes.
+   Themes @import this and only define the CSS variables below. */
+#preview-pane { background: var(--bg); }
+#write {
+  color: var(--fg); background: var(--bg);
+  font-family: var(--font); font-size: var(--size, 16px); line-height: var(--lh, 1.7);
+  word-wrap: break-word; max-width: var(--maxw, 860px);
+}
+#write > *:first-child { margin-top: 0; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6 {
+  font-family: var(--hfont, var(--font)); font-weight: var(--hweight, 600);
+  line-height: 1.25; margin: 1.5em 0 .8em; color: var(--hcolor, var(--fg));
+}
+#write h1 { font-size: 2em; padding-bottom: .3em; border-bottom: var(--hrule, 1px solid var(--border)); }
+#write h2 { font-size: 1.5em; padding-bottom: .3em; border-bottom: var(--hrule, 1px solid var(--border)); }
+#write h3 { font-size: 1.25em; }
+#write h4 { font-size: 1em; }
+#write h5 { font-size: .9em; }
+#write h6 { font-size: .85em; color: var(--muted); }
+#write p, #write blockquote, #write ul, #write ol, #write dl, #write table, #write pre { margin: 0 0 1em; }
+#write a { color: var(--accent); text-decoration: var(--link-deco, none); }
+#write a:hover { text-decoration: underline; }
+#write strong { font-weight: 700; }
+#write em { font-style: italic; }
+#write ul, #write ol { padding-left: 2em; }
+#write li { margin: .25em 0; }
+#write li > ul, #write li > ol { margin: .25em 0; }
+#write blockquote {
+  color: var(--quote-fg); border-left: .25em solid var(--quote-bar);
+  padding: .2em 1em; margin-left: 0; background: var(--quote-bg, transparent);
+}
+#write code {
+  font-family: var(--mono); font-size: .88em; background: var(--code-bg);
+  padding: .2em .4em; border-radius: 6px; color: var(--code-fg, inherit);
+}
+#write pre {
+  background: var(--code-bg); padding: 14px 16px; border-radius: 8px;
+  overflow: auto; line-height: 1.45; border: var(--pre-border, none);
+}
+#write pre code { background: none; padding: 0; font-size: .85em; color: inherit; }
+#write hr { height: 2px; background: var(--border); border: 0; margin: 1.8em 0; }
+#write table { border-collapse: collapse; display: block; overflow: auto; }
+#write th, #write td { border: 1px solid var(--border); padding: 7px 13px; }
+#write th { background: var(--table-alt); font-weight: 600; }
+#write tr:nth-child(2n) td { background: var(--table-alt); }
+#write img { max-width: 100%; border-radius: 4px; }
+#write mark { background: var(--mark); padding: 0 .15em; color: #1a1a1a; }
+#write kbd {
+  font-family: var(--mono); background: var(--code-bg); border: 1px solid var(--border);
+  border-bottom-width: 2px; border-radius: 5px; padding: 2px 6px; font-size: .8em;
+}
+#write .task-list-item { list-style: none; }
+#write .task-list-item .task-checkbox { margin: 0 .5em 0 -1.4em; }
+#write sub, #write sup { font-size: .75em; }
+#write dt { font-weight: 600; margin-top: .6em; }
+#write dd { margin-left: 1.6em; }
+#write del { opacity: .7; }
+#write ins { text-decoration: none; border-bottom: 2px solid var(--accent); }
+#write .footnotes { border-top: 1px solid var(--border); margin-top: 2.5em; font-size: .9em; color: var(--muted); }
+#write .footnote-ref a, #write .footnote-backref { text-decoration: none; }
+#write .md-toc { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; margin: 1em 0; }
+#write .md-toc .toc-title { font-weight: 600; margin: 0 0 .5em; }
+#write .md-toc ul { list-style: none; padding-left: 0; margin: 0; }
+#write .md-toc li { margin: .15em 0; }
+#write .md-toc .toc-lvl-2 { padding-left: 1.2em; }
+#write .md-toc .toc-lvl-3 { padding-left: 2.4em; }
+#write .md-toc .toc-lvl-4 { padding-left: 3.6em; }
+#write .md-toc a { color: var(--accent); }
+#write .math-display { text-align: center; overflow-x: auto; margin: 1em 0; }
+#write .katex { font-size: 1.05em; }
+#write .mermaid-rendered svg { max-width: 100%; height: auto; }

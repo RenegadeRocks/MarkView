@@ -1,0 +1,9 @@
+/* Theme: GitHub */
+@import "_base.css";
+#write {
+  --bg: #ffffff; --fg: #24292f; --muted: #57606a; --accent: #0969da;
+  --border: #d0d7de; --code-bg: #f6f8fa; --quote-fg: #57606a; --quote-bar: #d0d7de;
+  --table-alt: #f6f8fa; --mark: #fff8c5;
+  --font: -apple-system, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}

@@ -1,0 +1,9 @@
+/* Theme: Dark */
+@import "_base.css";
+#write {
+  --bg: #121212; --fg: #e0e0e0; --muted: #888; --accent: #4ea1ff;
+  --border: #2a2a2a; --code-bg: #1c1c1c; --quote-fg: #aaa; --quote-bar: #3a3a3a;
+  --table-alt: #1a1a1a; --mark: #ffd54f;
+  --font: "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+}

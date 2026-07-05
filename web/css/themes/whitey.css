@@ -1,0 +1,11 @@
+/* Theme: Whitey — clean minimalist */
+@import "_base.css";
+#write {
+  --bg: #ffffff; --fg: #3a3a3a; --muted: #9a9a9a; --accent: #333333;
+  --border: #ececec; --code-bg: #f7f7f7; --quote-fg: #777; --quote-bar: #e0e0e0;
+  --table-alt: #fafafa; --mark: #fdf3b5;
+  --font: "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+  --size: 16px; --lh: 1.8; --maxw: 720px; --hweight: 600; --hrule: none;
+}
+#write h1, #write h2 { padding-bottom: 0; }

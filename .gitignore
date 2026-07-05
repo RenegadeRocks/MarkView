@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# MarkView runtime data
+.markview/
+markview_selftest*.json
+
+# OS / editor cruft
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+
+# Local IDE / Claude settings
+.claude/
