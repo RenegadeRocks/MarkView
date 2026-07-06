@@ -6,6 +6,7 @@ Backend: pywebview (Edge WebView2). Frontend: web/ (HTML/CSS/JS).
 Provides file I/O, folder trees, settings persistence, and export.
 """
 import os
+import re
 import sys
 import json
 import base64
@@ -169,6 +170,52 @@ class Api:
             return {"path": path}
         except Exception as e:
             return {"error": str(e)}
+
+    def export_html(self, path, html):
+        """Write a styled HTML export with KaTeX fonts embedded as data URIs so
+        the file renders math correctly anywhere (fully self-contained)."""
+        try:
+            html = self._embed_katex_fonts(html)
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(html)
+            return {"path": path}
+        except Exception as e:
+            return {"error": str(e)}
+
+    def _embed_katex_fonts(self, html):
+        """Replace KaTeX @font-face `src:` declarations with a single inline
+        woff2 data URI. KaTeX CSS lists woff2/woff/ttf; every modern browser
+        supports woff2, so embedding only woff2 keeps exports small (~200 KB)."""
+        fonts_dir = os.path.join(WEB, "vendor", "katex", "fonts")
+        if not os.path.isdir(fonts_dir):
+            return html
+        cache = {}
+
+        def data_uri(basename):
+            if basename in cache:
+                return cache[basename]
+            fp = os.path.join(fonts_dir, basename)
+            uri = None
+            if os.path.exists(fp):
+                with open(fp, "rb") as fh:
+                    b = base64.b64encode(fh.read()).decode("ascii")
+                uri = "data:font/woff2;base64," + b
+            cache[basename] = uri
+            return uri
+
+        def repl(match):
+            body, term = match.group(1), match.group(2)
+            fm = re.search(r"(KaTeX_[A-Za-z0-9\-]+\.woff2)", body)
+            if not fm:
+                return match.group(0)
+            uri = data_uri(fm.group(1))
+            if not uri:
+                return match.group(0)
+            return 'src:url(' + uri + ') format("woff2")' + term
+
+        # Match each `src: ...` declaration (KaTeX @font-face); handle both the
+        # `;`-terminated (CSSOM-serialized) and `}`-terminated (minified) forms.
+        return re.sub(r"(src\s*:[^;{}]+)([;}])", repl, html)
 
     def export_docx(self, path, html):
         """Best-effort HTML -> .docx. Falls back to Word-openable HTML."""
@@ -336,6 +383,16 @@ class Api:
             except Exception as e:
                 print("selftest_report err", e)
         return True
+
+    def selftest_export(self, html):
+        """Write a real styled export (fonts embedded) so the harness can verify
+        the file on disk is self-contained."""
+        p = os.environ.get("MARKVIEW_SELFTEST")
+        if not p:
+            return None
+        out = p + ".export.html"
+        self.export_html(out, html)
+        return out
 
     # ---------- helpers ----------
     def _push_recent(self, key, value):

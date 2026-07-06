@@ -608,7 +608,9 @@
     var name = (state.name || "document").replace(/\.[^.]+$/, "") + ".html";
     api().export_dialog(name, "html").then(function (path) {
       if (!path) return;
-      api().export_text(path, fullHtmlDoc(styled)).then(function (res) {
+      // styled export embeds KaTeX fonts (via export_html); styleless is plain text
+      var write = styled ? api().export_html : api().export_text;
+      write.call(api(), path, fullHtmlDoc(styled)).then(function (res) {
         toast(res && res.path ? "Exported HTML" : "Export failed");
       });
     });
@@ -907,6 +909,12 @@
     try {
       var exported = fullHtmlDoc(true);
       diag.exportHasBaseCss = exported.indexOf("task-list-item") >= 0;
+      // the assembled export must carry KaTeX @font-face src refs for the
+      // backend to embed as data URIs
+      diag.exportHasKatexSrc = /src\s*:[^;{}]*KaTeX_[^;{}]*\.woff2/.test(exported);
+      // write a real styled export to disk so the harness can verify it end-to-end
+      if (global.pywebview && global.pywebview.api && global.pywebview.api.selftest_export)
+        global.pywebview.api.selftest_export(exported);
     } catch (e2) {
       diag.exportError = String(e2);
     }

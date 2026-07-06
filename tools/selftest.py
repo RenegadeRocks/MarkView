@@ -20,9 +20,9 @@ def _is_dark(css_color):
 
 
 def watcher(window):
-    for _ in range(160):  # up to ~16s
+    for _ in range(500):  # up to ~50s (cold WebView2 first-run can be slow)
         if os.path.exists(OUTFILE) and os.path.getsize(OUTFILE) > 0:
-            time.sleep(0.3)
+            time.sleep(0.5)
             break
         time.sleep(0.1)
     try:
@@ -63,7 +63,18 @@ def main():
         "render:tasks": r.get("hasTaskbox"),
         "editor themes dark": _is_dark(d.get("darkEditorBg")) and d.get("hasDarkUi"),
         "export inlines base css": d.get("exportHasBaseCss"),
+        "export has katex font src": d.get("exportHasKatexSrc"),
     }
+    # end-to-end: inspect the real exported file the app wrote to disk
+    exp_path = OUTFILE + ".export.html"
+    if os.path.exists(exp_path):
+        exp = open(exp_path, encoding="utf-8").read()
+        checks["export file self-contained (fonts embedded)"] = (
+            "data:font/woff2;base64," in exp)
+        checks["export file has no localhost URLs"] = ("127.0.0.1" not in exp)
+        checks["export file has base css"] = ("task-list-item" in exp)
+    else:
+        checks["export file written"] = False
     print("\n--- checks ---")
     for k, v in checks.items():
         print(("  PASS  " if v else "  FAIL  ") + k)
